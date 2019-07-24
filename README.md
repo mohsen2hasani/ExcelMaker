@@ -2,6 +2,7 @@ install "EPPlus.Core" nuget and use this class to get excel file from any list o
 
 example:
 
+```
 public class TestController : Controller
 {
     public IActionResult Index()
@@ -11,3 +12,4 @@ public class TestController : Controller
         return File(excel.FileContents, excel.ContentType, excel.FileDownloadName);
     }
 }
+```
