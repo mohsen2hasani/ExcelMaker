@@ -1,4 +1,4 @@
-install "EPPlus.Core" nuget and use this class to get excel file from any list of objects in .net core projects:
+install "EPPlus" nuget and use this class to get excel file from any list of objects in .net core projects:
 
 example:
 

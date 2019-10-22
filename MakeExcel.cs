@@ -7,7 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Microsoft.AspNetCore.Http;
-using OfficeOpenXml; //add "EPPlus.Core" Nuget
+using OfficeOpenXml; //add "EPPlus" Nuget
 
 namespace Utility
 {
@@ -23,9 +23,6 @@ namespace Utility
             var entityType = typeof(T);
             var dataTable = new DataTable(entityType.Name);
             var properties = TypeDescriptor.GetProperties(entityType);
-
-            if (list.Count <= 0)
-                return DataTableToExcelData(dataTable, fileName, rightToLeft);
 
             foreach (PropertyDescriptor prop in properties)
                 if (prop.PropertyType == typeof(List<string>))
@@ -91,12 +88,12 @@ namespace Utility
             {
                 var worksheet = package.Workbook.Worksheets.Add("Excel");
                 package.Workbook.Worksheets["Excel"].View.RightToLeft = rightToLeft;
-
+                
                 worksheet.Cells["A1"].LoadFromDataTable(dataTable, true);
-                //for (int col = 1; col < dataTable.Columns.Count + 1; col++)
-                //{
-                //    worksheet.Column(col).AutoFit(5, 100);
-                //}
+                for (int col = 1; col < dataTable.Columns.Count + 1; col++)
+                {
+                    worksheet.Column(col).AutoFit(5, 100);
+                }
 
                 return new ExcelData
                 {
